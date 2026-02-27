@@ -22,6 +22,8 @@ services:
       - bash
       - -c
       - |
+        # Clean stale socket lock files to prevent PID reuse conflicts in containers
+        rm -f /var/run/mysqld/mysqld.sock.lock /var/run/mysqld/mysqlx.sock.lock
         /usr/local/bin/docker-entrypoint.sh mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci &
         MYSQL_PID=$$!
 
@@ -74,8 +76,8 @@ services:
         ]
       interval: 10s
       timeout: 5s
-      retries: 5
-      start_period: 30s
+      retries: 30
+      start_period: 120s
     networks:
       - coze-network
 
