@@ -217,6 +217,7 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
       MINIO_DEFAULT_BUCKETS: ${STORAGE_BUCKET:-opencoze},${MINIO_DEFAULT_BUCKETS:-milvus}
+      MINIO_CI_CD: "1"
     entrypoint:
       - /bin/sh
       - -c
