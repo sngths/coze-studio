@@ -1,5 +1,5 @@
 x-env-file: &env_file
-  - .env
+  - coze.env
 
 services:
   mysql:
@@ -391,8 +391,7 @@ services:
     image: cozedev/coze-studio-server:latest
     restart: always
     container_name: coze-server
-    # env_file removed: coze-server uses godotenv.Load() to read /app/.env (volume mount)
-    # env_file would inject empty-value vars into system env, preventing godotenv from overriding
+    env_file: *env_file
     # environment:
     #   LISTEN_ADDR: 0.0.0.0:8888
     networks:
@@ -401,7 +400,7 @@ services:
     #   - '8888'
     #   - '8889'
     volumes:
-      - .env:/app/.env
+      - coze.env:/app/.env
       - ../backend/conf:/app/resources/conf
       # - ../backend/static:/app/resources/static
     depends_on:
